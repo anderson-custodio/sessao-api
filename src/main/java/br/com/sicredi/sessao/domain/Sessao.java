@@ -1,13 +1,12 @@
 package br.com.sicredi.sessao.domain;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 public class Sessao {
@@ -17,15 +16,13 @@ public class Sessao {
 	private Long id;
 
 	@Column(nullable = false)
-	private Long pauta_id;
+	private Long pautaId;
 
-	@Column(nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date inicio;
+	@Basic
+	private LocalDateTime inicio;
 
-	@Column(nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date fim;
+	@Basic
+	private LocalDateTime fim;
 
 	@Column(nullable = false)
 	private Boolean ativa;
@@ -38,27 +35,27 @@ public class Sessao {
 		this.id = id;
 	}
 
-	public Long getPauta_id() {
-		return pauta_id;
+	public Long getPautaId() {
+		return pautaId;
 	}
 
-	public void setPauta_id(Long pauta_id) {
-		this.pauta_id = pauta_id;
+	public void setPautaId(Long pautaId) {
+		this.pautaId = pautaId;
 	}
 
-	public Date getInicio() {
+	public LocalDateTime getInicio() {
 		return inicio;
 	}
 
-	public void setInicio(Date inicio) {
+	public void setInicio(LocalDateTime inicio) {
 		this.inicio = inicio;
 	}
 
-	public Date getFim() {
+	public LocalDateTime getFim() {
 		return fim;
 	}
 
-	public void setFim(Date fim) {
+	public void setFim(LocalDateTime fim) {
 		this.fim = fim;
 	}
 
