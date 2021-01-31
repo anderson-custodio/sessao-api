@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import br.com.sicredi.sessao.domain.Sessao;
-import br.com.sicredi.sessao.dto.PautaAtivaDTO;
+import br.com.sicredi.sessao.dto.EncerraSessaoDTO;
 import br.com.sicredi.sessao.dto.SessaoDTO;
 import br.com.sicredi.sessao.repository.SessaoRepository;
 
@@ -32,7 +32,7 @@ public class SessaoService {
     sessao.setInicio(LocalDateTime.now());
     sessao.setAtiva(true);
 
-    controlarTempoSessao(sessao, sessaoDTO.getTempoEmMinutos());
+    controlarSessao(sessao, sessaoDTO.getTempoEmMinutos());
 
     return sessaoRepository.save(sessao);
   }
@@ -41,7 +41,7 @@ public class SessaoService {
     return sessaoRepository.findOneByPautaId(pautaId);
   }
 
-  private void controlarTempoSessao(Sessao sessao, Integer tempoSessaoMinutos) {
+  private void controlarSessao(Sessao sessao, Integer tempoSessaoMinutos) {
     new Thread(
             () -> {
               try {
@@ -51,7 +51,7 @@ public class SessaoService {
                 sessao.setAtiva(false);
                 sessaoRepository.save(sessao);
 
-                atualizarStatusDaPauta(sessao.getPautaId(), false);
+                encerrarSessao(sessao.getPautaId(), sessao.getId());
               } catch (InterruptedException e) {
                 e.printStackTrace();
               }
@@ -59,8 +59,8 @@ public class SessaoService {
         .start();
   }
 
-  private void atualizarStatusDaPauta(Long id, Boolean ativa) {
-    String url = assembleiaApiUrl + "/pautas/" + id;
-    restTemplate.patchForObject(url, PautaAtivaDTO.of(ativa), PautaAtivaDTO.class);
+  private void encerrarSessao(Long pautaId, Long sessaoId) {
+    String url = assembleiaApiUrl + "/sessoes/encerrar";
+    restTemplate.postForObject(url, EncerraSessaoDTO.of(pautaId, sessaoId), EncerraSessaoDTO.class);
   }
 }
