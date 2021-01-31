@@ -11,60 +11,55 @@ import javax.persistence.Id;
 @Entity
 public class Sessao {
 
-	@Id
-	@GeneratedValue
-	private Long id;
+  @Id @GeneratedValue private Long id;
 
-	@Column(nullable = false)
-	private Long pautaId;
+  @Column(nullable = false)
+  private Long pautaId;
 
-	@Basic
-	private LocalDateTime inicio;
+  @Basic private LocalDateTime inicio;
 
-	@Basic
-	private LocalDateTime fim;
+  @Basic private LocalDateTime fim;
 
-	@Column(nullable = false)
-	private Boolean ativa;
+  @Column(nullable = false)
+  private Boolean ativa;
 
-	public Long getId() {
-		return id;
-	}
+  public Long getId() {
+    return id;
+  }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-	public Long getPautaId() {
-		return pautaId;
-	}
+  public Long getPautaId() {
+    return pautaId;
+  }
 
-	public void setPautaId(Long pautaId) {
-		this.pautaId = pautaId;
-	}
+  public void setPautaId(Long pautaId) {
+    this.pautaId = pautaId;
+  }
 
-	public LocalDateTime getInicio() {
-		return inicio;
-	}
+  public LocalDateTime getInicio() {
+    return inicio;
+  }
 
-	public void setInicio(LocalDateTime inicio) {
-		this.inicio = inicio;
-	}
+  public void setInicio(LocalDateTime inicio) {
+    this.inicio = inicio;
+  }
 
-	public LocalDateTime getFim() {
-		return fim;
-	}
+  public LocalDateTime getFim() {
+    return fim;
+  }
 
-	public void setFim(LocalDateTime fim) {
-		this.fim = fim;
-	}
+  public void setFim(LocalDateTime fim) {
+    this.fim = fim;
+  }
 
-	public Boolean getAtiva() {
-		return ativa;
-	}
+  public Boolean getAtiva() {
+    return ativa;
+  }
 
-	public void setAtiva(Boolean ativa) {
-		this.ativa = ativa;
-	}
-
+  public void setAtiva(Boolean ativa) {
+    this.ativa = ativa;
+  }
 }
