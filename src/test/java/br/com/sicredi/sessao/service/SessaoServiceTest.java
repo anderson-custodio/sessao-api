@@ -21,32 +21,26 @@ import br.com.sicredi.sessao.repository.SessaoRepository;
 @ExtendWith(MockitoExtension.class)
 public class SessaoServiceTest {
 
-	@InjectMocks
-	private SessaoService sessaoService;
+  @InjectMocks private SessaoService sessaoService;
 
-	@Mock
-	private SessaoRepository sessaoRepository;
+  @Mock private SessaoRepository sessaoRepository;
 
-	@BeforeEach
-	void init() {
-		Mockito.lenient().when(sessaoRepository.save(any(Sessao.class))).then(AdditionalAnswers.returnsFirstArg());
-	}
+  @BeforeEach
+  void init() {
+    Mockito.lenient()
+        .when(sessaoRepository.save(any(Sessao.class)))
+        .then(AdditionalAnswers.returnsFirstArg());
+  }
 
-	@Test
-	public void testNotNull() {
-		Assertions.assertNotNull(sessaoService);
-	}
+  @Test
+  public void testCriarSessao() {
+    SessaoDTO sessaoDTO = new SessaoDTO();
+    sessaoDTO.setPautaId(-1L);
+    sessaoDTO.setTempoEmMinutos(5);
 
-	@Test
-	public void testCriarSessao() {
-		SessaoDTO sessaoDTO = new SessaoDTO();
-		sessaoDTO.setPautaId(-1L);
-		sessaoDTO.setTempoEmMinutos(5);
+    Sessao sessao = sessaoService.criarSessao(sessaoDTO);
 
-		Sessao sessao = sessaoService.criarSessao(sessaoDTO);
-
-		Assertions.assertNotNull(sessao);
-		verify(sessaoRepository, times(1)).save(any(Sessao.class));
-	}
-
+    Assertions.assertNotNull(sessao);
+    verify(sessaoRepository, times(1)).save(any(Sessao.class));
+  }
 }
